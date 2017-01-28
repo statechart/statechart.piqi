@@ -1,0 +1,5 @@
+.protobuf-package "statechart"
+
+.record [
+  .name document
+]
