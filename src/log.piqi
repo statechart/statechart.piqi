@@ -1,0 +1,15 @@
+.record [
+  .name log
+
+  .field [
+    .name label
+    .type string
+    .optional
+  ]
+
+  .field [
+    .name expression
+    .type expression
+    .optional
+  ]
+]

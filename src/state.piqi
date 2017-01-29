@@ -1,0 +1,127 @@
+.record [
+  .name state
+
+  .field [
+    .name idx
+    .type ref
+  ]
+  .field [
+    .name depth
+    .type uint
+  ]
+  .field [
+    .name priority
+    .type uint
+  ]
+
+  .field [
+    .name id
+    .type string
+    .optional
+  ]
+
+  .field [
+    .name type
+    .type state-type
+    .optional
+    .default.composite
+  ]
+
+  .field [
+    .name initial-states
+    .type ref
+    .repeated
+  ]
+
+  .field [
+    .name transitions
+    .type transition
+    .repeated
+  ]
+
+  .field [
+    .name invocations
+    .type invoke
+    .repeated
+  ]
+
+  .field [
+    .name on-enter
+    .type expression
+    .repeated
+  ]
+
+  .field [
+    .name on-exit
+    .type expression
+    .repeated
+  ]
+
+  .field [
+    .name children
+    .type ref
+    .repeated
+  ]
+
+  .field [
+    .name parent
+    .type ref
+    .optional
+  ]
+
+  .field [
+    .name ancestors
+    .type ref
+    .repeated
+  ]
+
+  .field [
+    .name descendants
+    .type ref
+    .repeated
+  ]
+
+  .field [
+    .name history
+    .type ref
+    .optional
+  ]
+
+  .field [
+    .name history-type
+    .type history-type
+    .optional
+  ]
+]
+
+.enum [
+  .name state-type
+  .option [
+    .name composite
+  ]
+  .option [
+    .name basic
+  ]
+  .option [
+    .name parallel
+  ]
+  .option [
+    .name history
+  ]
+  .option [
+    .name initial
+  ]
+  .option [
+    .name final
+  ]
+]
+
+.enum [
+  .name history-type
+  .option [
+    .name shallow
+  ]
+  .option [
+    .name deep
+  ]
+]

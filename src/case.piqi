@@ -1,0 +1,23 @@
+.record [
+  .name case
+
+  .field [
+    .name clauses
+    .type case-clause
+    .repeated
+  ]
+]
+
+.record [
+  .name case-clause
+
+  .field [
+    .name clause
+    .type expression
+  ]
+
+  .field [
+    .name body
+    .type expression
+  ]
+]

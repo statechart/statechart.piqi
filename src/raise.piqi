@@ -1,0 +1,8 @@
+.record [
+  .name raise
+
+  .field [
+    .name event
+    .type string
+  ]
+]

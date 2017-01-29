@@ -1,0 +1,14 @@
+.record [
+  .name assign
+
+  .field [
+    .name id
+    .type string
+  ]
+
+  .field [
+    .name expression
+    .type expression
+    .optional
+  ]
+]

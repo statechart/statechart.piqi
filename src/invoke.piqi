@@ -1,0 +1,52 @@
+.record [
+  .name invoke
+
+  .field [
+    .name type
+    .type expression
+    .optional
+  ]
+
+  .field [
+    .name src
+    .type expression
+    .optional
+  ]
+
+  .field [
+    .name id
+    .type expression
+    .optional
+  ]
+
+  .field [
+    .name namelist
+    .type var
+    .repeated
+  ]
+
+  .field [
+    .name autoforward
+    .type bool
+    .optional
+    .default false
+  ]
+
+  .field [
+    .name params
+    .type param
+    .repeated
+  ]
+
+  .field [
+    .name content
+    .type content
+    .optional
+  ]
+
+  .field [
+    .name on-exit
+    .type expression
+    .repeated
+  ]
+]

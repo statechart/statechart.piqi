@@ -1,0 +1,15 @@
+.variant [
+  .name expression
+
+  .option [ .type bool ]
+  .option [ .type int ]
+  .option [ .type float ]
+  .option [ .type string ]
+  .option [ .type binary ]
+  .option [ .type assign ]
+  .option [ .type foreach ]
+  .option [ .type case ]
+  .option [ .type log ]
+  .option [ .type raise ]
+  .option [ .type var ]
+]

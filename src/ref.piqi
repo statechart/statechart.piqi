@@ -1,0 +1,4 @@
+.alias [
+  .name ref
+  .type uint
+]

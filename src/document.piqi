@@ -1,0 +1,44 @@
+.enum [
+  .name document-binding
+  .option [
+    .name early
+  ]
+  .option [
+    .name late
+  ]
+]
+
+.record [
+  .name document
+
+  .field [
+    .name name
+    .type string
+    .optional
+  ]
+
+  .field [
+    .name binding
+    .type document-binding
+    .optional
+    .default.early
+  ]
+
+  .field [
+    .name initial-transitions
+    .type transition
+    .repeated
+  ]
+
+  .field [
+    .name states
+    .type state
+    .repeated
+  ]
+
+  .field [
+    .name datamodel
+    .type param
+    .repeated
+  ]
+]

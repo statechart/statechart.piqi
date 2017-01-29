@@ -1,0 +1,8 @@
+.record [
+  .name var
+
+  .field [
+    .name name
+    .type string
+  ]
+]

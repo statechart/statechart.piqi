@@ -1,12 +1,50 @@
 .protobuf-package "statechart"
+.record [
+  .name assign
 
-.alias [
-  .name ref
-  .type uint
+  .field [
+    .name id
+    .type string
+  ]
+
+  .field [
+    .name expression
+    .type expression
+    .optional
+  ]
+]
+.record [
+  .name case
+
+  .field [
+    .name clauses
+    .type case-clause
+    .repeated
+  ]
 ]
 
+.record [
+  .name case-clause
+
+  .field [
+    .name clause
+    .type expression
+  ]
+
+  .field [
+    .name body
+    .type expression
+  ]
+]
+.variant [
+  .name content
+
+  .option [ .type string ]
+  .option [ .type expression ]
+  .option [ .type document ]
+]
 .enum [
-  .name binding
+  .name document-binding
   .option [
     .name early
   ]
@@ -17,6 +55,7 @@
 
 .record [
   .name document
+
   .field [
     .name name
     .type string
@@ -25,20 +64,15 @@
 
   .field [
     .name binding
-    .type binding
+    .type document-binding
     .optional
     .default.early
   ]
 
   .field [
-    .name datamodel
-    .type param
+    .name initial-transitions
+    .type transition
     .repeated
-  ]
-
-  .field [
-    .name initial
-    .optional
   ]
 
   .field [
@@ -46,30 +80,147 @@
     .type state
     .repeated
   ]
-]
 
-.enum [
-  .name state-type
-  .option [
-    .name composite
-  ]
-  .option [
-    .name basic
-  ]
-  .option [
-    .name parallel
-  ]
-  .option [
-    .name history
-  ]
-  .option [
-    .name initial
-  ]
-  .option [
-    .name final
+  .field [
+    .name datamodel
+    .type param
+    .repeated
   ]
 ]
+.variant [
+  .name expression
 
+  .option [ .type bool ]
+  .option [ .type int ]
+  .option [ .type float ]
+  .option [ .type string ]
+  .option [ .type binary ]
+  .option [ .type assign ]
+  .option [ .type foreach ]
+  .option [ .type case ]
+  .option [ .type log ]
+  .option [ .type raise ]
+  .option [ .type var ]
+]
+.record [
+  .name foreach
+
+  .field [
+    .name array
+    .type expression
+  ]
+
+  .field [
+    .name item
+    .type var
+    .optional
+  ]
+
+  .field [
+    .name index
+    .type var
+    .optional
+  ]
+
+  .field [
+    .name expressions
+    .type expression
+    .repeated
+  ]
+]
+.record [
+  .name invoke
+
+  .field [
+    .name type
+    .type expression
+    .optional
+  ]
+
+  .field [
+    .name src
+    .type expression
+    .optional
+  ]
+
+  .field [
+    .name id
+    .type expression
+    .optional
+  ]
+
+  .field [
+    .name namelist
+    .type var
+    .repeated
+  ]
+
+  .field [
+    .name autoforward
+    .type bool
+    .optional
+    .default false
+  ]
+
+  .field [
+    .name params
+    .type param
+    .repeated
+  ]
+
+  .field [
+    .name content
+    .type content
+    .optional
+  ]
+
+  .field [
+    .name on-exit
+    .type expression
+    .repeated
+  ]
+]
+.record [
+  .name log
+
+  .field [
+    .name label
+    .type string
+    .optional
+  ]
+
+  .field [
+    .name expression
+    .type expression
+    .optional
+  ]
+]
+.record [
+  .name param
+
+  .field [
+    .name id
+    .type string
+  ]
+
+  .field [
+    .name expression
+    .type expression
+    .optional
+  ]
+]
+.record [
+  .name raise
+
+  .field [
+    .name event
+    .type string
+  ]
+]
+.alias [
+  .name ref
+  .type uint
+]
 .record [
   .name state
 
@@ -167,6 +318,28 @@
 ]
 
 .enum [
+  .name state-type
+  .option [
+    .name composite
+  ]
+  .option [
+    .name basic
+  ]
+  .option [
+    .name parallel
+  ]
+  .option [
+    .name history
+  ]
+  .option [
+    .name initial
+  ]
+  .option [
+    .name final
+  ]
+]
+
+.enum [
   .name history-type
   .option [
     .name shallow
@@ -175,7 +348,6 @@
     .name deep
   ]
 ]
-
 .enum [
   .name transition-type
   .option [
@@ -239,190 +411,6 @@
     .repeated
   ]
 ]
-
-.record [
-  .name invoke
-
-  .field [
-    .name type
-    .type expression
-    .optional
-  ]
-
-  .field [
-    .name src
-    .type expression
-    .optional
-  ]
-
-  .field [
-    .name id
-    .type expression
-    .optional
-  ]
-
-  .field [
-    .name namelist
-    .type var
-    .repeated
-  ]
-
-  .field [
-    .name autoforward
-    .type bool
-    .optional
-    .default false
-  ]
-
-  .field [
-    .name params
-    .type param
-    .repeated
-  ]
-
-  .field [
-    .name content
-    .type content
-    .optional
-  ]
-
-  .field [
-    .name on-exit
-    .type expression
-    .repeated
-  ]
-]
-
-.record [
-  .name param
-
-  .field [
-    .name id
-    .type string
-  ]
-
-  .field [
-    .name expression
-    .type expression
-    .optional
-  ]
-]
-
-.variant [
-  .name content
-
-  .option [ .type string ]
-  .option [ .type expression ]
-  .option [ .type document ]
-]
-
-.variant [
-  .name expression
-
-  .option [ .type bool ]
-  .option [ .type int ]
-  .option [ .type float ]
-  .option [ .type string ]
-  .option [ .type binary ]
-  .option [ .type assign ]
-  .option [ .type foreach ]
-  .option [ .type case ]
-  .option [ .type log ]
-  .option [ .type raise ]
-  .option [ .type var ]
-]
-
-.record [
-  .name assign
-
-  .field [
-    .name id
-    .type string
-  ]
-
-  .field [
-    .name expression
-    .type expression
-    .optional
-  ]
-]
-
-.record [
-  .name foreach
-
-  .field [
-    .name array
-    .type expression
-  ]
-
-  .field [
-    .name item
-    .type var
-    .optional
-  ]
-
-  .field [
-    .name index
-    .type var
-    .optional
-  ]
-
-  .field [
-    .name expressions
-    .type expression
-    .repeated
-  ]
-]
-
-.record [
-  .name case
-
-  .field [
-    .name clauses
-    .type case-clause
-    .repeated
-  ]
-]
-
-.record [
-  .name case-clause
-
-  .field [
-    .name clause
-    .type expression
-  ]
-
-  .field [
-    .name body
-    .type expression
-  ]
-]
-
-.record [
-  .name log
-
-  .field [
-    .name label
-    .type string
-    .optional
-  ]
-
-  .field [
-    .name expression
-    .type expression
-    .optional
-  ]
-]
-
-.record [
-  .name raise
-
-  .field [
-    .name event
-    .type string
-  ]
-]
-
 .record [
   .name var
 
