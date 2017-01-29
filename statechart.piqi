@@ -70,9 +70,8 @@
   ]
 
   .field [
-    .name initial-transitions
+    .name initial-transition
     .type transition
-    .repeated
   ]
 
   .field [

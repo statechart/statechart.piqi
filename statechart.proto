@@ -29,7 +29,7 @@ enum document_binding {
 message document {
     optional string name = 1;
     optional document_binding binding = 2 [default = early];
-    repeated transition initial_transitions = 3;
+    required transition initial_transition = 3;
     repeated state states = 4;
     repeated param datamodel = 5;
 }
