@@ -20,12 +20,6 @@
   ]
 
   .field [
-    .name namelist
-    .type var
-    .repeated
-  ]
-
-  .field [
     .name autoforward
     .type bool
     .optional

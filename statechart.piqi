@@ -1,41 +1,4 @@
 .protobuf-package "statechart"
-.record [
-  .name assign
-
-  .field [
-    .name id
-    .type string
-  ]
-
-  .field [
-    .name expression
-    .type expression
-    .optional
-  ]
-]
-.record [
-  .name case
-
-  .field [
-    .name clauses
-    .type case-clause
-    .repeated
-  ]
-]
-
-.record [
-  .name case-clause
-
-  .field [
-    .name clause
-    .type expression
-  ]
-
-  .field [
-    .name body
-    .type expression
-  ]
-]
 .variant [
   .name content
 
@@ -43,16 +6,6 @@
   .option [ .type expression ]
   .option [ .type document ]
 ]
-.enum [
-  .name document-binding
-  .option [
-    .name early
-  ]
-  .option [
-    .name late
-  ]
-]
-
 .record [
   .name document
 
@@ -63,15 +16,9 @@
   ]
 
   .field [
-    .name binding
-    .type document-binding
-    .optional
-    .default.early
-  ]
-
-  .field [
-    .name initial-transition
+    .name initial-transitions
     .type transition
+    .repeated
   ]
 
   .field [
@@ -79,50 +26,66 @@
     .type state
     .repeated
   ]
-
-  .field [
-    .name datamodel
-    .type param
-    .repeated
-  ]
 ]
-.variant [
+.enum [
+  .name expression-type
+  .option [ .name block ]
+
+  .option [ .name null ]
+  .option [ .name list ]
+  .option [ .name map ]
+  .option [ .name bool ]
+  .option [ .name int ]
+  .option [ .name float ]
+  .option [ .name string ]
+
+  .option [ .name raise ]
+  .option [ .name case ]
+  .option [ .name clause ]
+  .option [ .name foreach ]
+  .option [ .name log ]
+  .option [ .name assign ]
+  .option [ .name send ]
+  .option [ .name cancel ]
+
+  .option [ .name equal ]
+  .option [ .name not-equal ]
+]
+
+.record [
   .name expression
 
-  .option [ .type bool ]
-  .option [ .type int ]
-  .option [ .type float ]
-  .option [ .type string ]
-  .option [ .type binary ]
-  .option [ .type assign ]
-  .option [ .type foreach ]
-  .option [ .type case ]
-  .option [ .type log ]
-  .option [ .type raise ]
-  .option [ .type var ]
-]
-.record [
-  .name foreach
-
   .field [
-    .name array
-    .type expression
+    .name type
+    .type expression-type
   ]
 
   .field [
-    .name item
-    .type var
+    .name bool-val
+    .type bool
     .optional
   ]
 
   .field [
-    .name index
-    .type var
+    .name int-val
+    .type int
     .optional
   ]
 
   .field [
-    .name expressions
+    .name float-val
+    .type float
+    .optional
+  ]
+
+  .field [
+    .name string-val
+    .type string
+    .optional
+  ]
+
+  .field [
+    .name args
     .type expression
     .repeated
   ]
@@ -146,12 +109,6 @@
     .name id
     .type expression
     .optional
-  ]
-
-  .field [
-    .name namelist
-    .type var
-    .repeated
   ]
 
   .field [
@@ -180,21 +137,6 @@
   ]
 ]
 .record [
-  .name log
-
-  .field [
-    .name label
-    .type string
-    .optional
-  ]
-
-  .field [
-    .name expression
-    .type expression
-    .optional
-  ]
-]
-.record [
   .name param
 
   .field [
@@ -208,14 +150,6 @@
     .optional
   ]
 ]
-.record [
-  .name raise
-
-  .field [
-    .name event
-    .type string
-  ]
-]
 .alias [
   .name ref
   .type uint
@@ -225,14 +159,10 @@
 
   .field [
     .name idx
-    .type ref
-  ]
-  .field [
-    .name depth
     .type uint
   ]
   .field [
-    .name priority
+    .name depth
     .type uint
   ]
 
@@ -246,11 +176,11 @@
     .name type
     .type state-type
     .optional
-    .default.composite
+    .default.compound
   ]
 
   .field [
-    .name initial-states
+    .name initial
     .type ref
     .repeated
   ]
@@ -306,7 +236,7 @@
   .field [
     .name history
     .type ref
-    .optional
+    .repeated
   ]
 
   .field [
@@ -318,34 +248,18 @@
 
 .enum [
   .name state-type
-  .option [
-    .name composite
-  ]
-  .option [
-    .name basic
-  ]
-  .option [
-    .name parallel
-  ]
-  .option [
-    .name history
-  ]
-  .option [
-    .name initial
-  ]
-  .option [
-    .name final
-  ]
+  .option [ .name compound ]
+  .option [ .name basic ]
+  .option [ .name parallel ]
+  .option [ .name history ]
+  .option [ .name initial ]
+  .option [ .name final ]
 ]
 
 .enum [
   .name history-type
-  .option [
-    .name shallow
-  ]
-  .option [
-    .name deep
-  ]
+  .option [ .name shallow ]
+  .option [ .name deep ]
 ]
 .enum [
   .name transition-type
@@ -361,16 +275,16 @@
   .name transition
 
   .field [
-    .name scope
-    .type ref
+    .name idx
+    .type uint
   ]
   .field [
     .name depth
     .type uint
   ]
   .field [
-    .name priority
-    .type uint
+    .name scope
+    .type ref
   ]
 
   .field [
@@ -408,13 +322,5 @@
     .name on-transition
     .type expression
     .repeated
-  ]
-]
-.record [
-  .name var
-
-  .field [
-    .name name
-    .type string
   ]
 ]

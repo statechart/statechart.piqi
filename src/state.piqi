@@ -3,14 +3,10 @@
 
   .field [
     .name idx
-    .type ref
-  ]
-  .field [
-    .name depth
     .type uint
   ]
   .field [
-    .name priority
+    .name depth
     .type uint
   ]
 
@@ -24,11 +20,11 @@
     .name type
     .type state-type
     .optional
-    .default.composite
+    .default.compound
   ]
 
   .field [
-    .name initial-states
+    .name initial
     .type ref
     .repeated
   ]
@@ -84,7 +80,7 @@
   .field [
     .name history
     .type ref
-    .optional
+    .repeated
   ]
 
   .field [
@@ -96,32 +92,16 @@
 
 .enum [
   .name state-type
-  .option [
-    .name composite
-  ]
-  .option [
-    .name basic
-  ]
-  .option [
-    .name parallel
-  ]
-  .option [
-    .name history
-  ]
-  .option [
-    .name initial
-  ]
-  .option [
-    .name final
-  ]
+  .option [ .name compound ]
+  .option [ .name basic ]
+  .option [ .name parallel ]
+  .option [ .name history ]
+  .option [ .name initial ]
+  .option [ .name final ]
 ]
 
 .enum [
   .name history-type
-  .option [
-    .name shallow
-  ]
-  .option [
-    .name deep
-  ]
+  .option [ .name shallow ]
+  .option [ .name deep ]
 ]

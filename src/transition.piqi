@@ -12,16 +12,16 @@
   .name transition
 
   .field [
-    .name scope
-    .type ref
+    .name idx
+    .type uint
   ]
   .field [
     .name depth
     .type uint
   ]
   .field [
-    .name priority
-    .type uint
+    .name scope
+    .type ref
   ]
 
   .field [

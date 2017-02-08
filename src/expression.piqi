@@ -1,15 +1,63 @@
-.variant [
+.enum [
+  .name expression-type
+  .option [ .name block ]
+
+  .option [ .name null ]
+  .option [ .name list ]
+  .option [ .name map ]
+  .option [ .name bool ]
+  .option [ .name int ]
+  .option [ .name float ]
+  .option [ .name string ]
+
+  .option [ .name raise ]
+  .option [ .name case ]
+  .option [ .name clause ]
+  .option [ .name foreach ]
+  .option [ .name log ]
+  .option [ .name assign ]
+  .option [ .name send ]
+  .option [ .name cancel ]
+
+  .option [ .name equal ]
+  .option [ .name not-equal ]
+]
+
+.record [
   .name expression
 
-  .option [ .type bool ]
-  .option [ .type int ]
-  .option [ .type float ]
-  .option [ .type string ]
-  .option [ .type binary ]
-  .option [ .type assign ]
-  .option [ .type foreach ]
-  .option [ .type case ]
-  .option [ .type log ]
-  .option [ .type raise ]
-  .option [ .type var ]
+  .field [
+    .name type
+    .type expression-type
+  ]
+
+  .field [
+    .name bool-val
+    .type bool
+    .optional
+  ]
+
+  .field [
+    .name int-val
+    .type int
+    .optional
+  ]
+
+  .field [
+    .name float-val
+    .type float
+    .optional
+  ]
+
+  .field [
+    .name string-val
+    .type string
+    .optional
+  ]
+
+  .field [
+    .name args
+    .type expression
+    .repeated
+  ]
 ]

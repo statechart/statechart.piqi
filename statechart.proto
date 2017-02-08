@@ -1,74 +1,56 @@
 package statechart;
 
 
-message assign {
-    required string id = 1;
-    optional expression expression = 2;
-}
-
-message case {
-    repeated case_clause clauses = 1;
-}
-
-message case_clause {
-    required expression clause = 1;
-    required expression body = 2;
-}
-
 message content {
     optional string string = 1;
     optional expression expression = 2;
     optional document document = 3;
 }
 
-enum document_binding {
-    early = 1;
-    late = 2;
-}
-
 message document {
     optional string name = 1;
-    optional document_binding binding = 2 [default = early];
-    required transition initial_transition = 3;
-    repeated state states = 4;
-    repeated param datamodel = 5;
+    repeated transition initial_transitions = 2;
+    repeated state states = 3;
+}
+
+enum expression_type {
+    block = 1;
+    null = 2;
+    list = 3;
+    map = 4;
+    bool = 5;
+    int = 6;
+    float = 7;
+    string = 8;
+    raise = 9;
+    case = 10;
+    clause = 11;
+    foreach = 12;
+    log = 13;
+    assign = 14;
+    send = 15;
+    cancel = 16;
+    equal = 17;
+    not_equal = 18;
 }
 
 message expression {
-    optional bool bool = 1;
-    optional sint32 int = 2;
-    optional double float = 3;
-    optional string string = 4;
-    optional bytes binary = 5;
-    optional assign assign = 6;
-    optional foreach foreach = 7;
-    optional case case = 8;
-    optional log log = 9;
-    optional raise raise = 10;
-    optional var var = 11;
-}
-
-message foreach {
-    required expression array = 1;
-    optional var item = 2;
-    optional var index = 3;
-    repeated expression expressions = 4;
+    required expression_type type = 1;
+    optional bool bool_val = 2;
+    optional sint32 int_val = 3;
+    optional double float_val = 4;
+    optional string string_val = 5;
+    repeated expression args = 6;
 }
 
 message invoke {
     optional expression type = 1;
     optional expression src = 2;
     optional expression id = 3;
-    repeated var namelist = 4;
-    optional bool autoforward = 5 [default = false];
-    repeated param params = 6;
-    optional content content = 7;
-    repeated expression on_exit = 8;
-}
-
-message log {
-    optional string label = 1;
-    optional expression expression = 2;
+    optional bool autoforward = 4 [default = false];
+    repeated param params = 5;
+    optional content content = 6;
+    repeated expression on_exit = 7;
 }
 
 message param {
@@ -76,31 +58,26 @@ message param {
     optional expression expression = 2;
 }
 
-message raise {
-    required string event = 1;
-}
-
 message state {
     required uint32 idx = 1;
     required uint32 depth = 2;
-    required uint32 priority = 3;
-    optional string id = 4;
-    optional state_type type = 5 [default = composite];
-    repeated uint32 initial_states = 6;
-    repeated transition transitions = 7;
-    repeated invoke invocations = 8;
-    repeated expression on_enter = 9;
-    repeated expression on_exit = 10;
-    repeated uint32 children = 11;
-    optional uint32 parent = 12;
-    repeated uint32 ancestors = 13;
-    repeated uint32 descendants = 14;
-    optional uint32 history = 15;
-    optional history_type history_type = 16;
+    optional string id = 3;
+    optional state_type type = 4 [default = compound];
+    repeated uint32 initial = 5;
+    repeated transition transitions = 6;
+    repeated invoke invocations = 7;
+    repeated expression on_enter = 8;
+    repeated expression on_exit = 9;
+    repeated uint32 children = 10;
+    optional uint32 parent = 11;
+    repeated uint32 ancestors = 12;
+    repeated uint32 descendants = 13;
+    repeated uint32 history = 14;
+    optional history_type history_type = 15;
 }
 
 enum state_type {
-    composite = 1;
+    compound = 1;
     basic = 2;
     parallel = 3;
     history = 4;
@@ -119,18 +96,14 @@ enum transition_type {
 }
 
 message transition {
-    required uint32 scope = 1;
+    required uint32 idx = 1;
     required uint32 depth = 2;
-    required uint32 priority = 3;
+    required uint32 scope = 3;
     optional uint32 source = 4;
     repeated uint32 targets = 5;
     repeated string events = 6;
     optional expression condition = 7;
     optional transition_type type = 8 [default = external];
     repeated expression on_transition = 9;
-}
-
-message var {
-    required string name = 1;
 }
 
