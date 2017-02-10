@@ -8,14 +8,14 @@
   ]
 
   .field [
-    .name initial-transitions
-    .type transition
+    .name states
+    .type state
     .repeated
   ]
 
   .field [
-    .name states
-    .type state
+    .name transitions
+    .type transition
     .repeated
   ]
 ]

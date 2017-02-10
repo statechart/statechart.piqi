@@ -1,20 +1,16 @@
+.enum [
+  .name state-type
+  .option [ .name compound ]
+  .option [ .name atomic ]
+  .option [ .name parallel ]
+  .option [ .name history-shallow ]
+  .option [ .name history-deep ]
+  .option [ .name initial ]
+  .option [ .name final ]
+]
+
 .record [
   .name state
-
-  .field [
-    .name idx
-    .type uint
-  ]
-  .field [
-    .name depth
-    .type uint
-  ]
-
-  .field [
-    .name id
-    .type string
-    .optional
-  ]
 
   .field [
     .name type
@@ -24,21 +20,14 @@
   ]
 
   .field [
-    .name initial
-    .type ref
-    .repeated
+    .name idx
+    .type uint
   ]
 
   .field [
-    .name transitions
-    .type transition
-    .repeated
-  ]
-
-  .field [
-    .name invocations
-    .type invoke
-    .repeated
+    .name id
+    .type string
+    .optional
   ]
 
   .field [
@@ -54,15 +43,32 @@
   ]
 
   .field [
-    .name children
-    .type ref
+    .name invocations
+    .type invoke
     .repeated
+  ]
+
+  .field [
+    .name data
+    .type expression
+    .repeated
+  ]
+
+  .field [
+    .name donedata
+    .type expression
+    .optional
   ]
 
   .field [
     .name parent
     .type ref
-    .optional
+  ]
+
+  .field [
+    .name children
+    .type ref
+    .repeated
   ]
 
   .field [
@@ -72,36 +78,14 @@
   ]
 
   .field [
-    .name descendants
+    .name completion
     .type ref
     .repeated
   ]
 
   .field [
-    .name history
+    .name transitions
     .type ref
     .repeated
   ]
-
-  .field [
-    .name history-type
-    .type history-type
-    .optional
-  ]
-]
-
-.enum [
-  .name state-type
-  .option [ .name compound ]
-  .option [ .name basic ]
-  .option [ .name parallel ]
-  .option [ .name history ]
-  .option [ .name initial ]
-  .option [ .name final ]
-]
-
-.enum [
-  .name history-type
-  .option [ .name shallow ]
-  .option [ .name deep ]
 ]

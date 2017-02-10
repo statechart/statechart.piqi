@@ -9,8 +9,8 @@ message content {
 
 message document {
     optional string name = 1;
-    repeated transition initial_transitions = 2;
-    repeated state states = 3;
+    repeated state states = 2;
+    repeated transition transitions = 3;
 }
 
 enum expression_type {
@@ -58,52 +58,49 @@ message param {
     optional expression expression = 2;
 }
 
-message state {
-    required uint32 idx = 1;
-    required uint32 depth = 2;
-    optional string id = 3;
-    optional state_type type = 4 [default = compound];
-    repeated uint32 initial = 5;
-    repeated transition transitions = 6;
-    repeated invoke invocations = 7;
-    repeated expression on_enter = 8;
-    repeated expression on_exit = 9;
-    repeated uint32 children = 10;
-    optional uint32 parent = 11;
-    repeated uint32 ancestors = 12;
-    repeated uint32 descendants = 13;
-    repeated uint32 history = 14;
-    optional history_type history_type = 15;
-}
-
 enum state_type {
     compound = 1;
-    basic = 2;
+    atomic = 2;
     parallel = 3;
-    history = 4;
-    initial = 5;
-    final = 6;
+    history_shallow = 4;
+    history_deep = 5;
+    initial = 6;
+    final = 7;
 }
 
-enum history_type {
-    shallow = 1;
-    deep = 2;
+message state {
+    optional state_type type = 1 [default = compound];
+    required uint32 idx = 2;
+    optional string id = 3;
+    repeated expression on_enter = 4;
+    repeated expression on_exit = 5;
+    repeated invoke invocations = 6;
+    repeated expression data = 7;
+    optional expression donedata = 8;
+    required uint32 parent = 9;
+    repeated uint32 children = 10;
+    repeated uint32 ancestors = 11;
+    repeated uint32 completion = 12;
+    repeated uint32 transitions = 13;
 }
 
 enum transition_type {
-    external = 1;
+    targetless = 1;
     internal = 2;
+    spontaneous = 3;
+    history = 4;
+    initial = 5;
 }
 
 message transition {
-    required uint32 idx = 1;
-    required uint32 depth = 2;
-    required uint32 scope = 3;
-    optional uint32 source = 4;
-    repeated uint32 targets = 5;
-    repeated string events = 6;
-    optional expression condition = 7;
-    optional transition_type type = 8 [default = external];
-    repeated expression on_transition = 9;
+    optional transition_type type = 1 [default = targetless];
+    required uint32 idx = 2;
+    required uint32 source = 3;
+    repeated string events = 4;
+    optional expression condition = 5;
+    repeated expression on_transition = 6;
+    repeated uint32 targets = 7;
+    repeated uint32 conflicts = 8;
+    repeated uint32 exits = 9;
 }
 

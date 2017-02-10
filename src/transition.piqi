@@ -1,39 +1,30 @@
 .enum [
   .name transition-type
-  .option [
-    .name external
-  ]
-  .option [
-    .name internal
-  ]
+  .option [.name targetless]
+  .option [.name internal]
+  .option [.name spontaneous]
+  .option [.name history]
+  .option [.name initial]
 ]
 
 .record [
   .name transition
 
   .field [
+    .name type
+    .type transition-type
+    .optional
+    .default.targetless
+  ]
+
+  .field [
     .name idx
     .type uint
-  ]
-  .field [
-    .name depth
-    .type uint
-  ]
-  .field [
-    .name scope
-    .type ref
   ]
 
   .field [
     .name source
     .type ref
-    .optional
-  ]
-
-  .field [
-    .name targets
-    .type ref
-    .repeated
   ]
 
   .field [
@@ -49,15 +40,26 @@
   ]
 
   .field [
-    .name type
-    .type transition-type
-    .optional
-    .default.external
+    .name on-transition
+    .type expression
+    .repeated
   ]
 
   .field [
-    .name on-transition
-    .type expression
+    .name targets
+    .type ref
+    .repeated
+  ]
+
+  .field [
+    .name conflicts
+    .type ref
+    .repeated
+  ]
+
+  .field [
+    .name exits
+    .type ref
     .repeated
   ]
 ]
