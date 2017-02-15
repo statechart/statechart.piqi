@@ -1,3 +1,4 @@
+syntax = "proto2";
 package statechart;
 
 
@@ -13,28 +14,27 @@ message document {
     repeated transition transitions = 3;
 }
 
-enum expression_type {
-    block = 1;
-    null = 2;
-    list = 3;
-    map = 4;
-    bool = 5;
-    int = 6;
-    float = 7;
-    string = 8;
-    raise = 9;
-    case = 10;
-    clause = 11;
-    foreach = 12;
-    log = 13;
-    assign = 14;
-    send = 15;
-    cancel = 16;
-    equal = 17;
-    not_equal = 18;
-}
-
 message expression {
+    enum expression_type {
+        block = 1;
+        null = 2;
+        list = 3;
+        map = 4;
+        bool = 5;
+        int = 6;
+        float = 7;
+        string = 8;
+        raise = 9;
+        case = 10;
+        clause = 11;
+        foreach = 12;
+        log = 13;
+        assign = 14;
+        send = 15;
+        cancel = 16;
+        equal = 17;
+        not_equal = 18;
+    }
     required expression_type type = 1;
     optional bool bool_val = 2;
     optional sint32 int_val = 3;
@@ -58,17 +58,16 @@ message param {
     optional expression expression = 2;
 }
 
-enum state_type {
-    compound = 1;
-    atomic = 2;
-    parallel = 3;
-    history_shallow = 4;
-    history_deep = 5;
-    initial = 6;
-    final = 7;
-}
-
 message state {
+    enum state_type {
+        compound = 1;
+        atomic = 2;
+        parallel = 3;
+        history_shallow = 4;
+        history_deep = 5;
+        initial = 6;
+        final = 7;
+    }
     optional state_type type = 1 [default = compound];
     required uint32 idx = 2;
     optional string id = 3;
@@ -78,29 +77,29 @@ message state {
     repeated expression data = 7;
     optional expression donedata = 8;
     required uint32 parent = 9;
-    repeated uint32 children = 10;
-    repeated uint32 ancestors = 11;
-    repeated uint32 completion = 12;
-    repeated uint32 transitions = 13;
-}
-
-enum transition_type {
-    targetless = 1;
-    internal = 2;
-    spontaneous = 3;
-    history = 4;
-    initial = 5;
+    required bytes children = 10;
+    required bytes ancestors = 11;
+    required bytes completion = 12;
+    required bytes transitions = 13;
+    optional bool has_history = 14 [default = false];
 }
 
 message transition {
+    enum transition_type {
+        external = 1;
+        targetless = 2;
+        internal = 3;
+        spontaneous = 4;
+        history = 5;
+        initial = 6;
+    }
     optional transition_type type = 1 [default = targetless];
     required uint32 idx = 2;
     required uint32 source = 3;
     repeated string events = 4;
     optional expression condition = 5;
     repeated expression on_transition = 6;
-    repeated uint32 targets = 7;
-    repeated uint32 conflicts = 8;
-    repeated uint32 exits = 9;
+    required bytes targets = 7;
+    required bytes conflicts = 8;
+    required bytes exits = 9;
 }
-

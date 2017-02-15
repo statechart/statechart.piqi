@@ -151,8 +151,8 @@
   ]
 ]
 .alias [
-  .name ref
-  .type uint
+  .name bitset
+  .type binary
 ]
 .enum [
   .name state-type
@@ -218,35 +218,39 @@
 
   .field [
     .name parent
-    .type ref
+    .type uint
   ]
 
   .field [
     .name children
-    .type ref
-    .repeated
+    .type bitset
   ]
 
   .field [
     .name ancestors
-    .type ref
-    .repeated
+    .type bitset
   ]
 
   .field [
     .name completion
-    .type ref
-    .repeated
+    .type bitset
   ]
 
   .field [
     .name transitions
-    .type ref
-    .repeated
+    .type bitset
+  ]
+
+  .field [
+    .name has-history
+    .type bool
+    .optional
+    .default false
   ]
 ]
 .enum [
   .name transition-type
+  .option [.name external]
   .option [.name targetless]
   .option [.name internal]
   .option [.name spontaneous]
@@ -271,7 +275,7 @@
 
   .field [
     .name source
-    .type ref
+    .type uint
   ]
 
   .field [
@@ -294,19 +298,16 @@
 
   .field [
     .name targets
-    .type ref
-    .repeated
+    .type bitset
   ]
 
   .field [
     .name conflicts
-    .type ref
-    .repeated
+    .type bitset
   ]
 
   .field [
     .name exits
-    .type ref
-    .repeated
+    .type bitset
   ]
 ]

@@ -62,30 +62,33 @@
 
   .field [
     .name parent
-    .type ref
+    .type uint
   ]
 
   .field [
     .name children
-    .type ref
-    .repeated
+    .type bitset
   ]
 
   .field [
     .name ancestors
-    .type ref
-    .repeated
+    .type bitset
   ]
 
   .field [
     .name completion
-    .type ref
-    .repeated
+    .type bitset
   ]
 
   .field [
     .name transitions
-    .type ref
-    .repeated
+    .type bitset
+  ]
+
+  .field [
+    .name has-history
+    .type bool
+    .optional
+    .default false
   ]
 ]

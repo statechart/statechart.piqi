@@ -1,5 +1,6 @@
 .enum [
   .name transition-type
+  .option [.name external]
   .option [.name targetless]
   .option [.name internal]
   .option [.name spontaneous]
@@ -24,7 +25,7 @@
 
   .field [
     .name source
-    .type ref
+    .type uint
   ]
 
   .field [
@@ -47,19 +48,16 @@
 
   .field [
     .name targets
-    .type ref
-    .repeated
+    .type bitset
   ]
 
   .field [
     .name conflicts
-    .type ref
-    .repeated
+    .type bitset
   ]
 
   .field [
     .name exits
-    .type ref
-    .repeated
+    .type bitset
   ]
 ]
